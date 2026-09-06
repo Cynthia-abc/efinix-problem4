@@ -22,6 +22,12 @@ module window_3x3_tb;
     integer sampled_row;
     integer sampled_col;
     reg     sampled_previous_href;
+    integer pending_row;
+    integer pending_col;
+    reg     pending_input_active;
+    reg     pending_input_vsync;
+    reg     pending_input_hsync;
+    reg     pending_input_href;
 
     window_3x3 #(.IMAGE_WIDTH(5)) dut (
         .clk(clk),
@@ -90,36 +96,81 @@ module window_3x3_tb;
     // Check every input cycle, including the boundary cycles before a full window.
     always @(posedge clk) begin
         #1;
-        if (in_vsync) begin
+        if (!rst_n) begin
             sampled_row = 0;
             sampled_col = 0;
             sampled_previous_href = 1'b0;
+            pending_row = 0;
+            pending_col = 0;
+            pending_input_active = 1'b0;
+            pending_input_vsync = 1'b0;
+            pending_input_hsync = 1'b0;
+            pending_input_href = 1'b0;
+        end else if (!in_vsync) begin
+            sampled_row = 0;
+            sampled_col = 0;
+            sampled_previous_href = 1'b0;
+            pending_row = 0;
+            pending_col = 0;
+            pending_input_active = 1'b0;
+            pending_input_vsync = 1'b0;
+            pending_input_hsync = 1'b0;
+            pending_input_href = 1'b0;
             if (window_valid !== 1'b0) begin
                 $display("FAIL frame sync boundary: window_valid was high");
                 errors = errors + 1;
             end
-        end else if (in_href) begin
-            if (window_valid !== ((sampled_row >= 2) && (sampled_col >= 2))) begin
-                $display("FAIL boundary row=%0d col=%0d valid=%0d",
-                         sampled_row, sampled_col, window_valid);
-                errors = errors + 1;
-            end
-            if (window_valid) begin
-                check_window(valid_count);
-                valid_count = valid_count + 1;
-            end
-            sampled_col = sampled_col + 1;
-            sampled_previous_href = 1'b1;
         end else begin
-            if (window_valid !== 1'b0) begin
-                $display("FAIL inactive cycle: window_valid was high");
+            // The DUT has one synchronous line-buffer read cycle of latency.
+            if (out_vsync !== pending_input_vsync) begin
+                $display("FAIL out_vsync delay: got %0d expected %0d",
+                         out_vsync, pending_input_vsync);
                 errors = errors + 1;
             end
-            if (sampled_previous_href) begin
-                sampled_row = sampled_row + 1;
-                sampled_col = 0;
+            if (out_hsync !== pending_input_hsync) begin
+                $display("FAIL out_hsync delay: got %0d expected %0d",
+                         out_hsync, pending_input_hsync);
+                errors = errors + 1;
             end
-            sampled_previous_href = 1'b0;
+            if (out_href !== pending_input_href) begin
+                $display("FAIL out_href delay: got %0d expected %0d",
+                         out_href, pending_input_href);
+                errors = errors + 1;
+            end
+
+            if (pending_input_active) begin
+                if (window_valid !== ((pending_row >= 2) && (pending_col >= 2))) begin
+                    $display("FAIL boundary row=%0d col=%0d valid=%0d",
+                             pending_row, pending_col, window_valid);
+                    errors = errors + 1;
+                end
+                if (window_valid) begin
+                    check_window(valid_count);
+                    valid_count = valid_count + 1;
+                end
+            end else if (window_valid !== 1'b0) begin
+                $display("FAIL delayed inactive cycle: window_valid was high");
+                errors = errors + 1;
+            end
+
+            // Capture the current input coordinates for the next output cycle.
+            pending_input_vsync = in_vsync;
+            pending_input_hsync = in_hsync;
+            pending_input_href  = in_href;
+            if (in_href) begin
+                pending_input_active = 1'b1;
+                pending_row = sampled_row;
+                pending_col = sampled_col;
+                sampled_col = sampled_col + 1;
+                sampled_previous_href = 1'b1;
+            end else begin
+                pending_input_active = 1'b0;
+                if (sampled_previous_href) begin
+                    sampled_row = sampled_row + 1;
+                    sampled_col = 0;
+                end
+                sampled_previous_href = 1'b0;
+            end
         end
     end
 
@@ -155,7 +206,7 @@ module window_3x3_tb;
         clk = 1'b0;
         rst_n = 1'b0;
         gray_data = 0;
-        in_vsync = 1'b0;
+        in_vsync = 1'b1;
         in_hsync = 1'b0;
         in_href = 1'b0;
         errors = 0;
@@ -163,14 +214,20 @@ module window_3x3_tb;
         sampled_row = 0;
         sampled_col = 0;
         sampled_previous_href = 1'b0;
+        pending_row = 0;
+        pending_col = 0;
+        pending_input_active = 1'b0;
+        pending_input_vsync = 1'b0;
+        pending_input_hsync = 1'b0;
+        pending_input_href = 1'b0;
 
         repeat (2) @(negedge clk);
         rst_n = 1'b1;
 
         // A separate frame-sync cycle resets the line buffers and counters.
-        in_vsync = 1'b1;
-        @(negedge clk);
         in_vsync = 1'b0;
+        @(negedge clk);
+        in_vsync = 1'b1;
 
         send_row(1, 2, 3, 4, 5);
         send_row(6, 7, 8, 9, 10);
