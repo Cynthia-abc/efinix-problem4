@@ -1225,6 +1225,8 @@ module example_top
 	wire 			window_vsync, window_hsync, window_href;
 	wire 	[7:0] 	edge_data;
 	wire 			edge_valid;
+	wire 	[7:0] 	binary_edge_data;
+	wire 			binary_edge_valid;
 
 	window_3x3 #(
 		.IMAGE_WIDTH(1920)
@@ -1265,6 +1267,15 @@ module example_top
 		.edge_valid		(edge_valid)
 	);
 
+	edge_threshold #(
+		.THRESHOLD(8'd80)
+	) u_edge_threshold (
+		.edge_data_in	(edge_data),
+		.edge_valid_in	(edge_valid),
+		.edge_data_out	(binary_edge_data),
+		.edge_valid_out(binary_edge_valid)
+	);
+
 	
 	
 	
@@ -1300,7 +1311,9 @@ module example_top
 		.vid_pVSync		(w_gray_vsync), 
 		.vid_pHSync		(w_gray_hsync), 
 		.vid_pVDE		(w_gray_href), 
-		.vid_pData		({edge_data, edge_data, edge_data}), 
+		// Legacy Sobel grayscale output, retained for quick rollback:
+		// .vid_pData		({edge_data, edge_data, edge_data}),
+		.vid_pData		({binary_edge_data, binary_edge_data, binary_edge_data}), 
 		
 		.txc_o		(hdmi_txc_o), 
 		.txd0_o		(hdmi_txd0_o), 

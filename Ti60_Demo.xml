@@ -29,6 +29,7 @@
         <efx:design_file name="ip/dsi_tx/Ti60F225_devkit/simple_dual_port_ram.v" version="default" library="default"/>
         <efx:design_file name="src/isp/window_3x3.v" version="default" library="default"/>
         <efx:design_file name="src/isp/sobel_core.v" version="default" library="default"/>
+        <efx:design_file name="src/isp/edge_threshold.v" version="default" library="default"/>
         <efx:design_file name="src/isp/Line_Shift_RAM_8Bit.v" version="default" library="default"/>
         <efx:design_file name="src/isp/VIP_Matrix_Generate_3X3_8Bit.v" version="default" library="default"/>
         <efx:design_file name="src/cmos_i2c/i2c_timing_ctrl_reg16_dat8_wronly.v" version="default" library="default"/>
