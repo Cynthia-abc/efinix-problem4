@@ -1217,6 +1217,54 @@ module example_top
 		.out_href	(w_gray_href)
 	);
 
+	// 3x3 window and Sobel edge processing.
+	wire 	[7:0] 	p00, p01, p02;
+	wire 	[7:0] 	p10, p11, p12;
+	wire 	[7:0] 	p20, p21, p22;
+	wire 			window_valid;
+	wire 			window_vsync, window_hsync, window_href;
+	wire 	[7:0] 	edge_data;
+	wire 			edge_valid;
+
+	window_3x3 #(
+		.IMAGE_WIDTH(1920)
+	) u_window_3x3 (
+		.clk			(clk_pixel_2x),
+		.rst_n			(rstn_pixel),
+		.gray_data		(w_gray_data),
+		.in_vsync		(w_gray_vsync),
+		.in_hsync		(w_gray_hsync),
+		.in_href		(w_gray_href),
+		.p00			(p00),
+		.p01			(p01),
+		.p02			(p02),
+		.p10			(p10),
+		.p11			(p11),
+		.p12			(p12),
+		.p20			(p20),
+		.p21			(p21),
+		.p22			(p22),
+		.out_vsync		(window_vsync),
+		.out_hsync		(window_hsync),
+		.out_href		(window_href),
+		.window_valid	(window_valid)
+	);
+
+	sobel_core u_sobel_core (
+		.p00			(p00),
+		.p01			(p01),
+		.p02			(p02),
+		.p10			(p10),
+		.p11			(p11),
+		.p12			(p12),
+		.p20			(p20),
+		.p21			(p21),
+		.p22			(p22),
+		.window_valid	(window_valid),
+		.edge_data		(edge_data),
+		.edge_valid		(edge_valid)
+	);
+
 	
 	
 	
@@ -1249,10 +1297,10 @@ module example_top
 		.PixelClk		(clk_pixel_2x        ),//pixel clk = 74.25M
 		.SerialClk		(     ),//pixel clk *5 = 371.25M
 		
-		.vid_pVSync		(w_gray_vsync), 
-		.vid_pHSync		(w_gray_hsync), 
-		.vid_pVDE		(w_gray_href), 
-		.vid_pData		({w_gray_data, w_gray_data, w_gray_data}), 
+		.vid_pVSync		(window_vsync), 
+		.vid_pHSync		(window_hsync), 
+		.vid_pVDE		(window_href), 
+		.vid_pData		({edge_data, edge_data, edge_data}), 
 		
 		.txc_o		(hdmi_txc_o), 
 		.txd0_o		(hdmi_txd0_o), 
@@ -1263,4 +1311,3 @@ module example_top
 	
 	
 endmodule
-
