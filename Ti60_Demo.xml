@@ -26,6 +26,7 @@
         <efx:design_file name="src/axi/axi4_ctrl.v" version="default" library="default"/>
         <efx:design_file name="src/isp/VIP_RAW8_RGB888.v" version="default" library="default"/>
         <efx:design_file name="src/isp/grayscale.v" version="default" library="default"/>
+        <efx:design_file name="ip/dsi_tx/Ti60F225_devkit/simple_dual_port_ram.v" version="default" library="default"/>
         <efx:design_file name="src/isp/window_3x3.v" version="default" library="default"/>
         <efx:design_file name="src/isp/sobel_core.v" version="default" library="default"/>
         <efx:design_file name="src/isp/Line_Shift_RAM_8Bit.v" version="default" library="default"/>

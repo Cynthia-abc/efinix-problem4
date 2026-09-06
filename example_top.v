@@ -1297,9 +1297,9 @@ module example_top
 		.PixelClk		(clk_pixel_2x        ),//pixel clk = 74.25M
 		.SerialClk		(     ),//pixel clk *5 = 371.25M
 		
-		.vid_pVSync		(window_vsync), 
-		.vid_pHSync		(window_hsync), 
-		.vid_pVDE		(window_href), 
+		.vid_pVSync		(w_gray_vsync), 
+		.vid_pHSync		(w_gray_hsync), 
+		.vid_pVDE		(w_gray_href), 
 		.vid_pData		({edge_data, edge_data, edge_data}), 
 		
 		.txc_o		(hdmi_txc_o), 
