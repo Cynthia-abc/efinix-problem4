@@ -1,0 +1,27 @@
+[
+  {
+    "test": "mode3_reference",
+    "passed": true,
+    "elapsed_seconds": 1.202
+  },
+  {
+    "test": "mode4_thin",
+    "passed": true,
+    "elapsed_seconds": 1.703
+  },
+  {
+    "test": "mode4_fullhd",
+    "passed": true,
+    "elapsed_seconds": 33.668
+  },
+  {
+    "test": "tb_erosion_bounds",
+    "passed": true,
+    "elapsed_seconds": 0.132
+  },
+  {
+    "test": "tb_erosion_overlay",
+    "passed": true,
+    "elapsed_seconds": 0.122
+  }
+]

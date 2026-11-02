@@ -1,73 +1,74 @@
 `timescale 1ns/1ps
 
-//`include "ddr3_controller.vh"
+ 
 
 
 module example_top 
 (
-	////////////////////////////////////////////////////////////////
-	//	External Clock & Reset
-	//input 			nrst, 			//	Button K2
-	input 			clk_24m,			//	24MHz Crystal
-	input 			clk_25m,			//	25MHz Crystal 
+	 
+	 
+	 
+	input 			clk_24m,			 
+	input 			clk_25m,			 
+	input 	[1:0]	key_data,			 
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	System Clock
+	 
+	 
 	output 			sys_pll_rstn_o, 		
 	
-	input 			clk_sys,			//	Sys PLL 96MHz 
-	input 			clk_pixel,			//	Sys PLL 74.25MHz
-	input 			clk_pixel_2x,		//	Sys PLL 148.5MHz
-	input 			clk_pixel_10x,		//	Sys PLL 742.5MHz
+	input 			clk_sys,			 
+	input 			clk_pixel,			 
+	input 			clk_pixel_2x,		 
+	input 			clk_pixel_10x,		 
 	
-	input 			sys_pll_lock,		//	Sys PLL Lock
+	input 			sys_pll_lock,		 
 	
-	////////////////////////////////////////////////////////////////
-	//	MIPI-DSI Clock & Reset
+	 
+	 
 	output 			dsi_pll_rstn_o,
 	
-	input 			dsi_refclk_i,		//	48MHz Reference Clock (for DSI PLL)
-	input 			dsi_byteclk_i,		//	DSI Byte Clock (1X)
-	input 			dsi_serclk_i,		//	DSI Serial Clock (4X 45)
-	input 			dsi_txcclk_i,		//	DSI Serial Clock (4X 135)
+	input 			dsi_refclk_i,		 
+	input 			dsi_byteclk_i,		 
+	input 			dsi_serclk_i,		 
+	input 			dsi_txcclk_i,		 
 	
 	input 			dsi_pll_lock,
 	
-	////////////////////////////////////////////////////////////////
-	//	DDR Clock
+	 
+	 
 	output 			ddr_pll_rstn_o, 
 	
 	input 			tdqss_clk,			
-	input 			core_clk,			//	DDR PLL 200MHz
+	input 			core_clk,			 
 	input 			tac_clk,			
 	input 			twd_clk,			
 	
-	input 			ddr_pll_lock,		//	DDR PLL Lock
+	input 			ddr_pll_lock,		 
 	
-	////////////////////////////////////////////////////////////////
-	//	DDR PLL Phase Shift Interface
+	 
+	 
 	output 	[2:0] 	shift,
 	output 	[4:0] 	shift_sel,
 	output 			shift_ena,
 	
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	LVDS Clock
+	 
+	 
 	output 			lvds_pll_rstn_o, 
 	
 	input 			clk_lvds_1x, 
 	input 			clk_lvds_7x, 
-	input 			clk_27m, 			//	RGB 1X Clock (16MHz)
-	input 			clk_54m, 			//	RGB 2X Clock (32MHz, for export control)
+	input 			clk_27m, 			 
+	input 			clk_54m, 			 
 	
 	input 			lvds_pll_lock, 
 	
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	DDR Interface Ports
+	 
+	 
 	output 	[15:0] 	addr,
 	output 	[2:0] 	ba,
 	output 			we,
@@ -78,7 +79,7 @@ module example_top
 	output 			cke,
 	output 			cs,
 	
-	//	DQ I/O
+	 
 	input 	[15:0] 	i_dq_hi,
 	input 	[15:0] 	i_dq_lo,
 	
@@ -86,27 +87,27 @@ module example_top
 	output 	[15:0] 	o_dq_lo,
 	output 	[15:0] 	o_dq_oe,
 	
-	//	DM O
+	 
 	output 	[1:0] 	o_dm_hi,
 	output 	[1:0] 	o_dm_lo,
 	
-	//	DQS I/O
+	 
 	input 	[1:0] 	i_dqs_hi,
 	input 	[1:0] 	i_dqs_lo,
 	
-//	input 	[1:0] 	i_dqs_n_hi,
-//	input 	[1:0] 	i_dqs_n_lo,
+ 
+ 
 	
 	output 	[1:0] 	o_dqs_hi,
 	output 	[1:0] 	o_dqs_lo,
 	
-//	output 	[1:0] 	o_dqs_n_hi,
-//	output 	[1:0] 	o_dqs_n_lo,
+ 
+ 
 	
 	output 	[1:0] 	o_dqs_oe,
 	output 	[1:0] 	o_dqs_n_oe,
 	
-	//	CK
+	 
 	output 			clk_p_hi, 
 	output 			clk_p_lo, 
 	output 			clk_n_hi, 
@@ -114,8 +115,8 @@ module example_top
 	
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	MIPI-CSI Ctl / I2C
+	 
+	 
 	output 			csi_ctl0_o,
 	output 			csi_ctl0_oe,
 	input 			csi_ctl0_i,
@@ -132,14 +133,14 @@ module example_top
 	output 			csi_sda_oe,
 	input 			csi_sda_i,
 	
-	//	MIPI-CSI RXC 
+	 
 	input 			csi_rxc_lp_p_i,
 	input 			csi_rxc_lp_n_i,
 	output 			csi_rxc_hs_en_o,
 	output 			csi_rxc_hs_term_en_o,
 	input 			csi_rxc_i,
 	
-	//	MIPI-CSI RXD0
+	 
 	output 			csi_rxd0_rst_o,
 	output 			csi_rxd0_hs_en_o,
 	output 			csi_rxd0_hs_term_en_o,
@@ -148,7 +149,7 @@ module example_top
 	input 			csi_rxd0_lp_n_i,
 	input 	[7:0] 	csi_rxd0_hs_i,
 	
-	//	MIPI-CSI RXD1
+	 
 	output 			csi_rxd1_rst_o,
 	output 			csi_rxd1_hs_en_o,
 	output 			csi_rxd1_hs_term_en_o,
@@ -157,7 +158,7 @@ module example_top
 	input 			csi_rxd1_lp_p_i,
 	input 	[7:0] 	csi_rxd1_hs_i,
 	
-	//	MIPI-CSI RXD2
+	 
 	output 			csi_rxd2_rst_o,
 	output 			csi_rxd2_hs_en_o,
 	output 			csi_rxd2_hs_term_en_o,
@@ -166,7 +167,7 @@ module example_top
 	input 			csi_rxd2_lp_n_i,
 	input 	[7:0] 	csi_rxd2_hs_i,
 	
-	//	MIPI-CSI RXD3
+	 
 	output 			csi_rxd3_rst_o,
 	output 			csi_rxd3_hs_en_o,
 	output 			csi_rxd3_hs_term_en_o,
@@ -175,23 +176,23 @@ module example_top
 	input 			csi_rxd3_lp_n_i,
 	input 	[7:0] 	csi_rxd3_hs_i,
 	
-	//output 			csi_rxd0_fifo_rd_o, 
-	//input 			csi_rxd0_fifo_empty_i, 
-	//output 			csi_rxd1_fifo_rd_o, 
-	//input 			csi_rxd1_fifo_empty_i, 
-	//output 			csi_rxd2_fifo_rd_o, 
-	//input 			csi_rxd2_fifo_empty_i, 
-	//output 			csi_rxd3_fifo_rd_o, 
-	//input 			csi_rxd3_fifo_empty_i, 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	DSI PWM & Reset Control 
-	output 			dsi_pwm_o,			//	MIPI-DSI LCD PWM
-	output 			dsi_resetn_o,		//	MIPI-DSI LCD Reset
+	 
+	 
+	output 			dsi_pwm_o,			 
+	output 			dsi_resetn_o,		 
 	
-	//	MIPI-DSI TXC / TXD
+	 
 	output 			dsi_txc_rst_o,
 	output 			dsi_txc_lp_p_oe,
 	output 			dsi_txc_lp_p_o,
@@ -242,23 +243,23 @@ module example_top
 	input 			dsi_txd3_lp_n_i,
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	UART Interface
-	input 		 	uart_rx_i,			//	Support 460800-8-N-1. 
+	 
+	 
+	input 		 	uart_rx_i,			 
 	output 		 	uart_tx_o, 
 	
 	
-	output 	[5:0] 	led_o,			//	
+	output 	[5:0] 	led_o,			 
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	CMOS Sensor
+	 
+	 
 	output 			cmos_sclk,
 	input 			cmos_sdat_IN,
 	output 			cmos_sdat_OUT,
 	output 			cmos_sdat_OE,
 	
-	//	CMOS Interface
+	 
 	input 			cmos_pclk,
 	input 			cmos_vsync,
 	input 			cmos_href,
@@ -268,8 +269,8 @@ module example_top
 	output 			cmos_ctl3,
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	HDMI Interface
+	 
+	 
 	output 			hdmi_txc_oe,
 	output 			hdmi_txd0_oe,
 	output 			hdmi_txd1_oe,
@@ -286,8 +287,8 @@ module example_top
 	output 	[9:0] 	hdmi_txd2_o,
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	LVDS Interface
+	 
+	 
 	output 			lvds_txc_oe,
 	output 	[6:0] 	lvds_txc_o,
 	output 			lvds_txc_rst_o,
@@ -309,43 +310,43 @@ module example_top
 	output 			lvds_txd3_rst_o,
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	RGB LCD 5Inch 800x480
-	output 			lcd_tp_sda_o,		//	TP SDA
+	 
+	 
+	output 			lcd_tp_sda_o,		 
 	output 			lcd_tp_sda_oe,
 	input 			lcd_tp_sda_i,
 	
-	output 			lcd_tp_scl_o,		//	TP SCL
+	output 			lcd_tp_scl_o,		 
 	output 			lcd_tp_scl_oe,
 	input 			lcd_tp_scl_i,
 	
-	output 			lcd_tp_int_o,		//	TP INT
+	output 			lcd_tp_int_o,		 
 	output 			lcd_tp_int_oe,
 	input 			lcd_tp_int_i,
 	
-	output 			lcd_tp_rst_o,		//	TP RST
+	output 			lcd_tp_rst_o,		 
 	
-	output 			lcd_pwm_o,			//	Backlight
+	output 			lcd_pwm_o,			 
 	output 			lcd_blen_o,
 	
-	//output 			lcd_pclk_o,			//	PCLK & SCK Mux
-	output 			lcd_vs_o,			//	VS & SSN Mux. Fixed to 1. Use DE-Only mode. 
-	output 			lcd_hs_o,			//	HS. Fixed to 1. Use DE-Only mode. 
-	output 			lcd_de_o,			//	DE. 
+	 
+	output 			lcd_vs_o,			 
+	output 			lcd_hs_o,			 
+	 
 
-	output 	[7:0] 	lcd_b7_0_o,			//	B7:B0. 
-	output 	[7:0] 	lcd_g7_0_o,			//	G7:G0. Must output 8'hFF when access SPI. 
-	output 	[7:0] 	lcd_r7_0_o,			//	R7:R0. 
+	output 	[7:0] 	lcd_b7_0_o,			 
+	output 	[7:0] 	lcd_g7_0_o,			 
+	output 	[7:0] 	lcd_r7_0_o,			 
 	
-	output 	[7:0] 	lcd_b7_0_oe,		//	B7:B0. 
-	output 	[7:0] 	lcd_g7_0_oe,		//	G7:G0. Must output 8'hFF when access SPI. 
-	output 	[7:0] 	lcd_r7_0_oe,		//	R7:R0. 
+	output 	[7:0] 	lcd_b7_0_oe,		 
+	output 	[7:0] 	lcd_g7_0_oe,		 
+	output 	[7:0] 	lcd_r7_0_oe,		 
 
-	input 	[7:0] 	lcd_b7_0_i,			//	B7:B0. 
-	input 	[7:0] 	lcd_g7_0_i,			//	G7:G0. Must output 8'hFF when access SPI. 
-	input 	[7:0] 	lcd_r7_0_i,			//	R7:R0. 
+	input 	[7:0] 	lcd_b7_0_i,			 
+	input 	[7:0] 	lcd_g7_0_i,			 
+	input 	[7:0] 	lcd_r7_0_i,			 
 	
-	//	SPI Pins
+	 
 	output 			spi_sck_o, 
 	output 			spi_ssn_o 			
 );
@@ -367,14 +368,14 @@ module example_top
 	
 	parameter 	SIM_DATA 	= 0; 
 	
-	//	Hardware Configuration
-	assign clk_p_hi = 1'b0;	//	DDR3 Clock requires 180 degree shifted. 
+	 
+	assign clk_p_hi = 1'b0;	 
 	assign clk_p_lo = 1'b1;
 	assign clk_n_hi = 1'b1;
 	assign clk_n_lo = 1'b0; 
 	
-	//	System Clock Tree Control
-	assign sys_pll_rstn_o = 1'b1; 	//	nrst; 	//	Reset whole system when nrst (K2) is pressed. 
+	 
+	assign sys_pll_rstn_o = 1'b1; 	 
 	
 	assign dsi_pll_rstn_o = sys_pll_lock; 
 	assign ddr_pll_rstn_o = sys_pll_lock; 
@@ -382,7 +383,7 @@ module example_top
 	
 	wire 			w_pll_lock = sys_pll_lock && dsi_pll_lock && ddr_pll_lock && lvds_pll_lock; 
 	
-	//	Synchronize System Resets. 
+	 
 	reg 			rstn_sys = 0, rstn_pixel = 0; 
 	wire 			rst_sys = ~rstn_sys, rst_pixel = ~rstn_pixel; 
 	
@@ -395,7 +396,7 @@ module example_top
 	reg 			rstn_27m = 0, rstn_54m = 0; 
 	wire 			rst_27m = ~rstn_27m, rst_54m = ~rstn_54m; 
 	
-	//	Clock Gen
+	 
 	always @(posedge clk_27m or negedge w_pll_lock) begin if(~w_pll_lock) rstn_27m <= 0; else rstn_27m <= 1; end
 	always @(posedge clk_54m or negedge w_pll_lock) begin if(~w_pll_lock) rstn_54m <= 0; else rstn_54m <= 1; end
 	always @(posedge clk_sys or negedge w_pll_lock) begin if(~w_pll_lock) rstn_sys <= 0; else rstn_sys <= 1; end
@@ -405,14 +406,73 @@ module example_top
 	always @(posedge clk_lvds_1x or negedge w_pll_lock) begin if(~w_pll_lock) rstn_lvds_1x <= 0; else rstn_lvds_1x <= 1; end
 	
 	
-	localparam 	CLOCK_MAIN 	= 96000000; 	//	System clock using 96MHz. 
+	localparam 	CLOCK_MAIN 	= 96000000; 	 
+
+	 
+	 
+	 
+	wire 	[7:0]	 w_threshold_shadow_sys;
+	wire 			 	 w_threshold_update_toggle_sys;
+	wire 			 	 w_frame_freeze_active;
+	wire 			 	 w_replay_prev_toggle_sys;
+	wire 			 	 w_replay_next_toggle_sys;
+	wire 			 	 w_replay_mode_axi;
+
+	 
+	 
+	 
+	threshold_key_ctrl #(
+		.CLK_FREQ_HZ	(CLOCK_MAIN),
+		.DEBOUNCE_MS	(20)
+	) u_threshold_key_ctrl (
+		.clk		(clk_sys),
+		.rst_n		(rstn_sys),
+		.key_n		(key_data),
+		.threshold_shadow	(w_threshold_shadow_sys),
+		.threshold_update_toggle(w_threshold_update_toggle_sys),
+		.frame_freeze_active	(w_frame_freeze_active),
+		.replay_prev_toggle	(w_replay_prev_toggle_sys),
+		.replay_next_toggle	(w_replay_next_toggle_sys)
+	);
+
+     
+    wire [7:0] mode_rx_byte;
+    wire mode_rx_valid;
+    wire [2:0] display_mode_pixel, applied_mode_sys;
+    wire [1:0] display_slots_pixel, applied_slots_sys;
+    wire mode_applied_sys;
+    wire slots_applied_sys;
+    wire mode_sys_rst_n, mode_video_rst_n;
+    (* async_reg="true" *) reg [1:0] mode_sys_reset_sync, mode_video_reset_sync;
+    always @(posedge clk_sys or negedge w_pll_lock)
+        if (!w_pll_lock) mode_sys_reset_sync<=0;
+        else mode_sys_reset_sync<={mode_sys_reset_sync[0],1'b1};
+    always @(posedge clk_pixel_2x or negedge w_pll_lock)
+        if (!w_pll_lock) mode_video_reset_sync<=0;
+        else mode_video_reset_sync<={mode_video_reset_sync[0],1'b1};
+    assign mode_sys_rst_n=mode_sys_reset_sync[1];
+    assign mode_video_rst_n=mode_video_reset_sync[1];
+    uart_rx #(.CLK_FREQ(CLOCK_MAIN),.BAUD_RATE(115200)) u_mode_rx (
+        .clk(clk_sys),.rst_n(mode_sys_rst_n),.rx_i(uart_rx_i),
+        .rx_byte(mode_rx_byte),.rx_valid(mode_rx_valid));
+    display_mode_ctrl u_mode_ctrl (
+        .sys_clk(clk_sys),.sys_rst_n(mode_sys_rst_n),
+        .rx_byte(mode_rx_byte),.rx_valid(mode_rx_valid),
+        .video_clk(clk_pixel_2x),.video_rst_n(mode_video_rst_n),
+        .video_blank(!filtered_vsync),.active_mode(display_mode_pixel),
+        .applied_mode(applied_mode_sys),.applied_valid(mode_applied_sys),
+        .active_slots(display_slots_pixel),.applied_slots(applied_slots_sys),
+        .slots_applied_valid(slots_applied_sys));
+    uart_mode_reply #(.CLK_FREQ(CLOCK_MAIN),.BAUD_RATE(115200)) u_mode_reply (
+        .clk(clk_sys),.rst_n(mode_sys_rst_n),.applied_mode(applied_mode_sys),
+        .applied_valid(mode_applied_sys),.applied_slots(applied_slots_sys),
+        .slots_applied_valid(slots_applied_sys),.tx_o(uart_tx_o));
+
 	
 	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//	Flash Burner Control
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 
+	 
+	 
 	
 	wire 			w_ustick, w_mstick; 
 	
@@ -427,8 +487,8 @@ module example_top
 	wire 	[3:0] 	w_spi_data_o, w_spi_data_oe; 
 	wire 	[3:0] 	w_spi_data_i; 
 	
-	//	Flash Control
-	reg 			r_flash_en = 0; 		//	0x00:0x00 Enable Flash
+	 
+	reg 			r_flash_en = 0; 		 
 	
 	always @(posedge clk_sys) begin
 		r_flash_en <= (w_dev_wvalid_o && (w_dev_index_o == 8'h00) && (w_dev_cmd_o == 8'h00)) ? w_dev_wdata_o : r_flash_en; 
@@ -437,9 +497,9 @@ module example_top
 	
 	
 	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//	LCD Data Mux
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 
+	 
+	 
 	
 	wire 	[7:0] 	w_lcd_b_o, w_lcd_g_o, w_lcd_r_o; 
 	
@@ -461,16 +521,16 @@ module example_top
 	
 	
 	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//	DDR3 Controller
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 
+	 
+	 
 	wire			w_ddr3_ui_clk = clk_sys;
 	wire			w_ddr3_ui_rst = rst_sys;
 	wire			w_ddr3_ui_areset = rst_sys;
 	wire			w_ddr3_ui_aresetn = rstn_sys;
 	
 
-	//	General AXI Interface 
+	 
 	wire	[3:0] 	w_ddr3_awid;
 	wire	[31:0]	w_ddr3_awaddr;
 	wire	[7:0]		w_ddr3_awlen;
@@ -503,7 +563,7 @@ module example_top
 	wire 	[1:0] 	w_ddr3_rresp;
 	
 	
-	//	AXI Interface Request
+	 
 	wire 	[3:0] 	w_ddr3_aid;
 	wire 	[31:0] 	w_ddr3_aaddr;
 	wire 	[7:0]  	w_ddr3_alen;
@@ -516,7 +576,7 @@ module example_top
 	
 	wire 			w_ddr3_cal_done, w_ddr3_cal_pass; 
 	
-	//	Do not issue DDR read / write when ~cal_done. 
+	 
 	reg 			r_ddr_unlock = 0; 
 	always @(posedge w_ddr3_ui_clk or negedge w_ddr3_ui_aresetn) begin
 		if(~w_ddr3_ui_aresetn)
@@ -559,12 +619,12 @@ module example_top
 		.o_dqs_n_hi		(o_dqs_n_hi),
 		.o_dqs_n_lo		(o_dqs_n_lo),
 		.o_dqs_oe		(o_dqs_oe),
-		.o_dqs_n_oe		(),				//	o_dqs_n_oe),
+		.o_dqs_n_oe		(),				 
 		
 		.clk			(w_ddr3_ui_clk),
 		.reset_n		(w_ddr3_ui_aresetn),
 		
-		.axi_avalid		(w_ddr3_avalid),		//	Enable command only when unlocked. 
+		.axi_avalid		(w_ddr3_avalid),		 
 		.axi_aready		(w_ddr3_aready),
 		.axi_aaddr		(w_ddr3_aaddr),
 		.axi_aid		(w_ddr3_aid),
@@ -601,11 +661,11 @@ module example_top
 		.cal_done		(w_ddr3_cal_done),
 		.cal_pass		(w_ddr3_cal_pass)
 	);
-	//	The o_dqs_n_oe may not assert at negative edge. 
+	 
 	assign o_dqs_n_oe = o_dqs_oe; 
 	
 	assign w_ddr3_bready = 1'b1; 
-	assign shift_sel = 5'b00100; 		//	ddr_tac_clk always use PLLOUT[2]. 
+	assign shift_sel = 5'b00100; 		 
 	
 	
 	AXI4_AWARMux #(.AID_LEN(4), .AADDR_LEN(32)) axi4_awar_mux (
@@ -632,7 +692,7 @@ module example_top
 		.aready_i			(w_ddr3_aready)
 	);
 	
-	assign w_ddr3_asize = 4; 		//	Fixed 128 bits (16 bytes, size = 4)
+	assign w_ddr3_asize = 4; 		 
 	assign w_ddr3_aburst = 1; 
 	assign w_ddr3_alock = 0; 
 	
@@ -646,10 +706,10 @@ module example_top
 	
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	I2C Config (SC130GS)
+	 
+	 
 	
-	//  i2c timing controller module of 16Bit
+	 
 	wire            [ 8:0]          sc2210_i2c_config_index;
 	wire            [23:0]          sc2210_i2c_config_data;
 	wire            [ 8:0]          sc2210_i2c_config_size;
@@ -657,28 +717,28 @@ module example_top
 	
 	i2c_timing_ctrl_reg16_dat8_wronly
 	#(
-	    .CLK_FREQ           (CLOCK_MAIN),                              //  100 MHz
-	    .I2C_FREQ           (50_000    )                               //  10 KHz(<= 400KHz)
+	    .CLK_FREQ           (CLOCK_MAIN),                               
+	    .I2C_FREQ           (50_000    )                                
 	) u_i2c_timing_ctrl_16bit (
-	    //  global clock
-	    .clk                (clk_sys                 ),                          //  96MHz
-	    .rst_n              (rstn_sys                ),                          //  system reset
+	     
+	    .clk                (clk_sys                 ),                           
+	    .rst_n              (rstn_sys                ),                           
 
-	    //  i2c interface
-	    .i2c_sclk           (csi_scl_o               ),                          //  i2c clock
+	     
+	    .i2c_sclk           (csi_scl_o               ),                           
 	    .i2c_sdat_IN        (csi_sda_i               ),
 	    .i2c_sdat_OUT       (csi_sda_o               ),
 	    .i2c_sdat_OE        (csi_sda_oe              ),
 
-	    //  i2c config data
-	    .i2c_config_index   (sc2210_i2c_config_index        ),                          //  i2c config reg index, read 2 reg and write xx reg
-	    .i2c_config_data    ({8'h60, sc2210_i2c_config_data}),                     //  i2c config data
-	    .i2c_config_size    (sc2210_i2c_config_size         ),                          //  i2c config data counte
-	    .i2c_config_done    (sc2210_i2c_config_done         )                          //  i2c config timing complete
+	     
+	    .i2c_config_index   (sc2210_i2c_config_index        ),                           
+	    .i2c_config_data    ({8'h60, sc2210_i2c_config_data}),                      
+	    .i2c_config_size    (sc2210_i2c_config_size         ),                           
+	    .i2c_config_done    (sc2210_i2c_config_done         )                           
 	);
 	assign csi_scl_oe = 1; 
 
-	//  I2C Configure Data of SC2210
+	 
 	I2C_SC2210_19201080_4Lanes_Config u_I2C_SC2210_19201080_4Lanes_Config
 	(
 	    .LUT_INDEX  (sc2210_i2c_config_index   ),
@@ -688,17 +748,17 @@ module example_top
 		
 	
 		
-	//	CMOS Interface
-	//input 			cmos_pclk,
-	//input 			cmos_vsync,
-	//input 			cmos_href,
-	//input 	[7:0] 	cmos_data,
-	//input 			cmos_ctl1,
-	//output 			cmos_ctl2,
-	//output 			cmos_ctl3,
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 
 	
-	//	Output LED
+	 
 	reg 	[3:0]		r_cmos_fv_o = 0; 
 	reg 	[1:0] 	r_cmos_rx_vsync0_in = 0; 
 	always @(posedge cmos_pclk) begin
@@ -714,50 +774,50 @@ module example_top
 	
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	System Control. Can be removed for public. 
+	 
+	 
 	
-	localparam 	CLK_FREQ 	= 96_000_000; 	//	clk_sys is 96MHz. 
-	localparam 	BAUD_RATE 	= 460_800; 		//	Use 460800-8-N-1. 
-	
-	
-	//	SFR I/O Interface
-	wire 	[7:0] 	w_sfr_addr_o; 	//	SFR Address (0xFF00 ~ 0xFFFF). 00:Power; 40~5F:Stream0; 60~7F:Stream1. 
-	wire 	[7:0] 	w_sfr_wdata_o; 	//	SFR Write Data. 
-	wire 			w_sfr_we_o; 		//	SFR WE. 
-	reg 	[7:0] 	w_sfr_rdata_i; 	//	Must be valid after sfr_rd_o. 
-	wire 			w_sfr_rd_o; 		//	SFR RD. 
+	localparam 	CLK_FREQ 	= 96_000_000; 	 
+	localparam 	BAUD_RATE 	= 460_800; 		 
 	
 	
-	//	System Control Registers
-	reg 			r_dsi_tx_rstn = 0; 	//	DSI TX Reset
-	reg 	[7:0] 	r_dsi_pwm = 64; 		//	[6:0]PWM, [7]Pol
-	reg 			r_dsi_resetn_o = 0; 	//	DSI Panel Reset
-	reg 			r_dsi_data_rstn = 0; 	//	DSI TX Reset
+	 
+	wire 	[7:0] 	w_sfr_addr_o; 	 
+	wire 	[7:0] 	w_sfr_wdata_o; 	 
+	wire 			w_sfr_we_o; 		 
+	reg 	[7:0] 	w_sfr_rdata_i; 	 
+	wire 			w_sfr_rd_o; 		 
+	
+	
+	 
+	reg 			r_dsi_tx_rstn = 0; 	 
+	reg 	[7:0] 	r_dsi_pwm = 64; 		 
+	reg 			r_dsi_resetn_o = 0; 	 
+	reg 			r_dsi_data_rstn = 0; 	 
 	
 	reg 	[3:0] 	r_dsi_lp_p_ovr = 0; 	
 	reg 	[3:0] 	r_dsi_lp_n_ovr = 0; 	
 	
 	
 	
-	//	AXI-Lite Interface Bridge
-	localparam 	CSI_AXILITE_ID 	= 0; 				//	Select DSI_TX when r_axi_sel = DSI_AXILITE_ID. 
-	localparam 	DSI_AXILITE_ID 	= 1; 				//	Select DSI_TX when r_axi_sel = DSI_AXILITE_ID. 
+	 
+	localparam 	CSI_AXILITE_ID 	= 0; 				 
+	localparam 	DSI_AXILITE_ID 	= 1; 				 
 	
-	reg 	[7:0] 	r_axi_addr = 8'h18; 		//	0xE0 (RW)
-	reg 	[31:0] 	r_axi_wdata = 32'h0000000A; 	//	0xE1~0xE4 (RW)
-	wire 	[31:0] 	w_axi_rdata; 			//	0xE5~0xE8 (RO)
-	reg 	[0:0] 	r_axi_sel = 1; 			//	0xE9[7:2] (RW)
-	reg 			r_axi_r1w0 = 0; 			//	0xE9[1] (RW)
-	reg 			r_axi_req = 0; 			//	0xE9[0] (WO, Single Cycle)
-	reg 			r_axi_req_o = 0; 			//	Delayed of r_axi_req. 
+	reg 	[7:0] 	r_axi_addr = 8'h18; 		 
+	reg 	[31:0] 	r_axi_wdata = 32'h0000000A; 	 
+	wire 	[31:0] 	w_axi_rdata; 			 
+	reg 	[0:0] 	r_axi_sel = 1; 			 
+	reg 			r_axi_r1w0 = 0; 			 
+	reg 			r_axi_req = 0; 			 
+	reg 			r_axi_req_o = 0; 			 
 	
 	
-	//	Buffered AXI Read Data
-	reg 	[31:0] 	r_axi_rdata = 0; 		//	Use state machine
-	reg 			r_axi_idle = 0; 		//	AXI Idle 
+	 
+	reg 	[31:0] 	r_axi_rdata = 0; 		 
+	reg 			r_axi_idle = 0; 		 
 	
-	reg 	[3:0] 	rs_axilite = 0; 		//	AXI Access
+	reg 	[3:0] 	rs_axilite = 0; 		 
 	wire 	[3:0] 	ws_axilite_idle = 0; 		
 	wire 	[3:0] 	ws_axilite_write = 1; 
 	wire 	[3:0] 	ws_axilite_read = 2; 
@@ -802,7 +862,7 @@ module example_top
 	assign csi_ctl1_oe = 0; 
 	
 	
-	PWMLite dsi_pwm (		//	#(.ENABLE_TICK(0), .PWM_BITS(7)) 
+	PWMLite dsi_pwm (		 
 		.clk_i			(clk_sys),
 		.rst_i			(rst_sys),
 		.pwm_i			(r_dsi_pwm[6:0]),
@@ -815,21 +875,21 @@ module example_top
 
 
 
-	////////////////////////////////////////////////////////////////
-	//	MIPI CSI RX
+	 
+	 
 	
-	//	The CSI RXC shall not be inverted. Data can be inverted with swapped LP data and flipped HS data. 
+	 
 	localparam 	CSI_RXD_INV 	= 4'b1111; 
 	localparam 	CSI_DATA_WIDTH 	= 32; 			
 	localparam 	CSI_STRB_WIDTH 	= CSI_DATA_WIDTH / 8; 
 
-	//	Current implementation supports RAW8 only. 
+	 
 	wire 			w_csi_rx_clk; 
 	wire 			w_csi_rx_vsync0, w_csi_rx_hsync0, w_csi_rx_dvalid; 
 	wire 	[63:0] 	w_csi_rx_data; 
 	wire 	[47:0] 	w_csi_rx_data_rel_raw; 
 	
-	//	AXI Interface
+	 
 	wire 	[31:0] 	w_csi_axi_rdata; 
 	wire 			w_csi_axi_awready, w_csi_axi_wready, w_csi_axi_arready, w_csi_axi_rvalid; 
 	
@@ -876,7 +936,7 @@ module example_top
 	
 `else	
 	
-	//	Reset pixel 16 cycles after ~vsync. 
+	 
 	reg 			r_reset_pixen_n = 0; 
 	reg 	[1:0] 	r_csi_rx_vsync0_i = 0; 
 	always @(posedge w_csi_rx_clk or negedge rstn_sys) begin
@@ -895,7 +955,7 @@ module example_top
 		.clk				(w_csi_rx_clk), 
 		.reset_byte_HS_n		(rstn_sys), 
 		.clk_byte_HS		(csi_rxc_i), 
-		.reset_pixel_n		(r_reset_pixen_n), 	//rstn_sys), 
+		.reset_pixel_n		(r_reset_pixen_n), 	 
 		.clk_pixel			(w_csi_rx_clk), 
 		.Rx_LP_CLK_P		(csi_rxc_lp_p_i), 
 		.Rx_LP_CLK_N		(csi_rxc_lp_n_i), 
@@ -903,7 +963,7 @@ module example_top
 		.Rx_HS_enable_C		(csi_rxc_hs_en_o), 
 		.LVDS_termen_C		(csi_rxc_hs_term_en_o), 
 		
-		//	Lane inversion affects HS & LP data only. 
+		 
 		.Rx_LP_D_P			({CSI_RXD_INV[3] ? csi_rxd3_lp_n_i : csi_rxd3_lp_p_i, CSI_RXD_INV[2] ? csi_rxd2_lp_n_i : csi_rxd2_lp_p_i, CSI_RXD_INV[1] ? csi_rxd1_lp_n_i : csi_rxd1_lp_p_i, CSI_RXD_INV[0] ? csi_rxd0_lp_n_i : csi_rxd0_lp_p_i}), 
 		.Rx_LP_D_N			({CSI_RXD_INV[3] ? csi_rxd3_lp_p_i : csi_rxd3_lp_n_i, CSI_RXD_INV[2] ? csi_rxd2_lp_p_i : csi_rxd2_lp_n_i, CSI_RXD_INV[1] ? csi_rxd1_lp_p_i : csi_rxd1_lp_n_i, CSI_RXD_INV[0] ? csi_rxd0_lp_p_i : csi_rxd0_lp_n_i}), 
 		.Rx_HS_D_0			((CSI_RXD_INV[0] ? 8'hFF : 8'h00) ^ csi_rxd0_hs_i), 
@@ -991,6 +1051,9 @@ module example_top
 		.axi_rdata			(w_csi_axi_rdata)
 		
 	);
+	 
+	 
+	localparam ENABLE_EROSION_MULTI_ANALYSIS = 1'b1;
 	
 	assign csi_rxd0_rst_o = rst_sys; 
 	assign csi_rxd1_rst_o = rst_sys; 
@@ -1000,7 +1063,7 @@ module example_top
 	
 	
 	
-	//	Output LED
+	 
 	reg 	[5:0]		r_csi_fv_o = 0; 
 	reg 	[1:0] 	r_csi_rx_vsync0_in = 0; 
 	always @(posedge w_csi_rx_clk) begin
@@ -1011,39 +1074,39 @@ module example_top
 	
 	
 	
-	////////////////////////////////////////////////////////////////
-	//	MIPI-CSI Crop
+	 
+	 
 	
 	wire			XYCrop_frame_vsync; 
 	wire			XYCrop_frame_href;
 	wire			XYCrop_frame_de;
 	wire	[63:0]	XYCrop_frame_Gray;
 
-	//Sensor_Image_XYCrop
-	//#(
-	//	.IMAGE_HSIZE_SOURCE (1920 / CSI_STRB_WIDTH),
-	//	.IMAGE_VSIZE_SOURCE (1080	 ),
-	//	.IMAGE_HSIZE_TARGET (1024 / CSI_STRB_WIDTH),
-	//	.IMAGE_YSIZE_TARGET (600 	 ),
-	//	.PIXEL_DATA_WIDTH	(CSI_DATA_WIDTH) 		//	32		 )
-	//)
-	//u_Sensor_Image_XYCrop
-	//(
-	//	//	globel clock
-	//	.clk			(w_csi_rx_clk),			//	image pixel clock
-	//	.rst_n		(rstn_sys),			//	system reset
-	//	
-	//	//CMOS Sensor interface
-	//	.image_in_vsync (w_csi_rx_vsync0		),			//H : Data Valid; L : Frame Sync(Set it by register)
-	//	.image_in_href	(w_csi_rx_hsync0		),			//H : Data vaild, L : Line Sync
-	//	.image_in_de	(w_csi_rx_dvalid		), 			//H : Data Enable, L : Line Sync
-	//	.image_in_data	({w_csi_rx_data[7:0], w_csi_rx_data[15:8], w_csi_rx_data[23:16], w_csi_rx_data[31:24], w_csi_rx_data[39:32], w_csi_rx_data[47:40], w_csi_rx_data[55:48], w_csi_rx_data[63:56]}),			//8 bits cmos data input
-	//	
-	//	.image_out_vsync(XYCrop_frame_vsync ),			//H : Data Valid; L : Frame Sync(Set it by register)
-	//	.image_out_href (XYCrop_frame_href	),			//H : Data vaild, L : Line Sync
-	//	.image_out_de	(XYCrop_frame_de	), 			//H : Data Enable, L : Line Sync
-	//	.image_out_data (XYCrop_frame_Gray	)			//8 bits cmos data input	
-	//);
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 
 	reg			r_XYCrop_frame_vsync = 0; 
 	reg			r_XYCrop_frame_href = 0;
@@ -1057,12 +1120,12 @@ module example_top
 		r_XYCrop_frame_Gray <= XYCrop_frame_Gray;
 	end
 	
-	//	Data Write Assignment
-	//wire			cmos_frame_vsync = r_XYCrop_frame_vsync;                     //  cmos frame data vsync valid signal
-	//wire			cmos_frame_href = r_XYCrop_frame_href && r_XYCrop_frame_de;	 //  cmos frame data href vaild  signal
-	//wire	[63:0]	cmos_frame_Gray = r_XYCrop_frame_Gray; 
-	wire			cmos_frame_vsync = w_csi_rx_vsync0;                     //  cmos frame data vsync valid signal
-	wire			cmos_frame_href = w_csi_rx_hsync0 && w_csi_rx_dvalid;	 //  cmos frame data href vaild  signal
+	 
+	 
+	 
+	 
+	wire			cmos_frame_vsync = w_csi_rx_vsync0;                      
+	wire			cmos_frame_href = w_csi_rx_hsync0 && w_csi_rx_dvalid;	  
 	wire	[63:0]	cmos_frame_Gray = {w_csi_rx_data[7:0], w_csi_rx_data[15:8], w_csi_rx_data[23:16], w_csi_rx_data[31:24], w_csi_rx_data[39:32], w_csi_rx_data[47:40], w_csi_rx_data[55:48], w_csi_rx_data[63:56]}; 
 
 	
@@ -1078,8 +1141,8 @@ module example_top
 
 
 
-	////////////////////////////////////////////////////////////////
-	//	DDR R/W Control
+	 
+	 
 	
 
 	wire                            lcd_de;
@@ -1132,14 +1195,18 @@ module example_top
 		.axi_rready     (w_ddr3_rready       ),
 
 		.wframe_pclk    (w_csi_rx_clk          ),
-		.wframe_vsync   (cmos_frame_vsync), //w_wframe_vsync   ),		//	Writter VSync. Flush on rising edge. Connect to EOF. 
+		.wframe_vsync   (cmos_frame_vsync),  
 		.wframe_data_en (cmos_frame_href   ),
 		.wframe_data    (cmos_frame_Gray),
 		
 		.rframe_pclk    (clk_pixel_2x            ),
-		.rframe_vsync   (~lcd_vs             ),		//	Reader VSync. Flush on rising edge. Connect to ~EOF. 
+		.rframe_vsync   (~lcd_vs             ),		 
 		.rframe_data_en (lcd_request             ),
 		.rframe_data    (lcd_data           ),
+		.frame_freeze_i (w_frame_freeze_active),
+		.replay_prev_toggle_i (w_replay_prev_toggle_sys),
+		.replay_next_toggle_i (w_replay_next_toggle_sys),
+		.replay_mode_o (w_replay_mode_axi),
 		
 		.tp_o 		(w_axi_tp)
 	);
@@ -1148,26 +1215,26 @@ module example_top
 	
 	
 	
-	////////////////////////////////////////////////////////////////
-	//  LCD Timing Driver
+	 
+	 
 	
 	lcd_driver u_lcd_driver
 	(
-	    //  global clock
+	     
 	    .clk        (clk_pixel_2x   ),
 	    .rst_n      (rstn_pixel), 
 	    
-	    //  lcd interface
+	     
 	    .lcd_dclk   (               ),
 	    .lcd_blank  (               ),
 	    .lcd_sync   (               ),
-	    .lcd_request(lcd_request    ), 	//	Request data 1 cycle ahead. 
+	    .lcd_request(lcd_request    ), 	 
 	    .lcd_hs     (lcd_hs         ),
 	    .lcd_vs     (lcd_vs         ),
 	    .lcd_en     (lcd_de         ),
 	    .lcd_rgb    ({lcd_red2,lcd_green2,lcd_blue2, lcd_red,lcd_green,lcd_blue}),
 	    
-	    //  user interface
+	     
 	    .lcd_data   ({{3{lcd_data[15:8]}}, {3{lcd_data[7:0]}}}  )
 	);
 	
@@ -1178,23 +1245,23 @@ module example_top
 	wire 	[7:0] 	w_rgb_r, w_rgb_g, w_rgb_b; 
 	
 	VIP_RAW8_RGB888 #(.IMG_HDISP(1920), .IMG_VDISP(1080)) bayer2rgb (
-		.clk				(clk_pixel_2x),                //cmos video pixel clock
-		.rst_n			(rstn_pixel),              //global reset
+		.clk				(clk_pixel_2x),                 
+		.rst_n			(rstn_pixel),               
 	    
 		.mirror			(0),
 
-		    //CMOS YCbCr444 data output
-		.per_frame_vsync		(lcd_vs),    //Prepared Image data vsync valid signal. Reset on falling edge. 
-		.per_frame_href		(lcd_de),     //Prepared Image data href vaild  signal
-		.per_frame_hsync		(lcd_hs),     //Prepared Image data href vaild  signal
-		.per_img_RAW		(lcd_green),        //Prepared Image data 8 Bit RAW Data
+		     
+		.per_frame_vsync		(lcd_vs),     
+		.per_frame_href		(lcd_de),      
+		.per_frame_hsync		(lcd_hs),      
+		.per_img_RAW		(lcd_green),         
 
-		.post_frame_vsync		(w_rgb_vsync),   //Processed Image data vsync valid signal
-		.post_frame_href		(w_rgb_href),    //Processed Image data href vaild  signal
-		.post_frame_hsync		(w_rgb_hsync),    //Processed Image data href vaild  signal
-		.post_img_red		(w_rgb_r),       //Prepared Image green data to be processed 
-		.post_img_green		(w_rgb_g),     //Prepared Image green data to be processed
-		.post_img_blue		(w_rgb_b)       //Prepared Image blue data to be processed
+		.post_frame_vsync		(w_rgb_vsync),    
+		.post_frame_href		(w_rgb_href),     
+		.post_frame_hsync		(w_rgb_hsync),     
+		.post_img_red		(w_rgb_r),        
+		.post_img_green		(w_rgb_g),      
+		.post_img_blue		(w_rgb_b)        
 	);
 
 	wire 	[7:0]	w_gray_data;
@@ -1217,73 +1284,410 @@ module example_top
 		.out_href	(w_gray_href)
 	);
 
-	// 3x3 window and Sobel edge processing.
-	wire 	[7:0] 	p00, p01, p02;
-	wire 	[7:0] 	p10, p11, p12;
-	wire 	[7:0] 	p20, p21, p22;
-	wire 			window_valid;
-	wire 			window_vsync, window_hsync, window_href;
-	wire 	[7:0] 	edge_data;
-	wire 			edge_valid;
-	wire 	[7:0] 	binary_edge_data;
-	wire 			binary_edge_valid;
+	 
 
-	window_3x3 #(
-		.IMAGE_WIDTH(1920)
-	) u_window_3x3 (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	 
+	wire 	[7:0] 	filtered_edge_data;
+	wire 			filtered_edge_valid;
+	wire 	[1:0]	filtered_edge_dir;
+	wire signed [12:0] filtered_gradient_x;
+	wire signed [12:0] filtered_gradient_y;
+	wire 			filtered_vsync, filtered_hsync, filtered_href;
+
+	 
+	 
+	 
+	wire 			analysis_frame_done;
+	wire 			analysis_bbox_valid;
+	wire 	[10:0]	analysis_x_min, analysis_x_max;
+	wire 	[10:0]	analysis_y_min, analysis_y_max;
+	wire 	[31:0]	analysis_edge_count;
+	wire 	[10:0]	analysis_width = (analysis_x_max >= analysis_x_min) ?
+						(analysis_x_max - analysis_x_min + 11'd1) : 11'd0;
+	wire 	[10:0]	analysis_height = (analysis_y_max >= analysis_y_min) ?
+						(analysis_y_max - analysis_y_min + 11'd1) : 11'd0;
+
+	edge_frame_stats #(
+		.IMAGE_WIDTH(1920), .IMAGE_HEIGHT(1080), .MIN_EDGE_PIXELS(64),
+		.ROI_X_MIN(640), .ROI_Y_MIN(320), .ROI_WIDTH(640), .ROI_HEIGHT(440)
+	) u_edge_frame_stats (
+		.clk        (clk_pixel_2x),
+		.rst_n      (rstn_pixel),
+		.in_vsync   (filtered_vsync),
+		.in_hsync   (filtered_hsync),
+		.in_href    (filtered_href),
+		.edge_valid (filtered_edge_valid),
+		.edge_data  (filtered_edge_data),
+		.frame_done (analysis_frame_done),
+		.bbox_valid (analysis_bbox_valid),
+		.x_min      (analysis_x_min),
+		.x_max      (analysis_x_max),
+		.y_min      (analysis_y_min),
+		.y_max      (analysis_y_max),
+		.edge_count (analysis_edge_count)
+	);
+
+	 
+	 
+	 
+	reg 	[7:0] 	threshold_shadow_pix_d1, threshold_shadow_pix_d2;
+	reg 			threshold_toggle_pix_d1, threshold_toggle_pix_d2;
+	reg 			threshold_toggle_pix_seen;
+	reg 			threshold_pending_valid;
+	reg 	[7:0] 	threshold_pending;
+	reg 	[7:0] 	threshold_pixel;
+
+	always @(posedge clk_pixel_2x or negedge rstn_pixel) begin
+		if (!rstn_pixel) begin
+			threshold_shadow_pix_d1 <= 8'd64;
+			threshold_shadow_pix_d2 <= 8'd64;
+			threshold_toggle_pix_d1 <= 1'b0;
+			threshold_toggle_pix_d2 <= 1'b0;
+			threshold_toggle_pix_seen <= 1'b0;
+			threshold_pending_valid <= 1'b0;
+			threshold_pending <= 8'd64;
+			threshold_pixel <= 8'd64;
+		end else begin
+			threshold_shadow_pix_d1 <= w_threshold_shadow_sys;
+			threshold_shadow_pix_d2 <= threshold_shadow_pix_d1;
+			threshold_toggle_pix_d1 <= w_threshold_update_toggle_sys;
+			threshold_toggle_pix_d2 <= threshold_toggle_pix_d1;
+
+			 
+			 
+			 
+			 
+			if (!w_gray_vsync && threshold_pending_valid) begin
+				threshold_pixel <= threshold_pending;
+			end
+
+			if (threshold_toggle_pix_d2 != threshold_toggle_pix_seen) begin
+				threshold_pending <= threshold_shadow_pix_d2;
+				threshold_pending_valid <= 1'b1;
+				threshold_toggle_pix_seen <= threshold_toggle_pix_d2;
+			end else if (!w_gray_vsync && threshold_pending_valid) begin
+				threshold_pending_valid <= 1'b0;
+			end
+		end
+	end
+
+	 
+	wire [7:0] canny_rgb_r,canny_rgb_g,canny_rgb_b;
+	wire canny_probe_pix_valid,canny_probe_pix_sof,canny_probe_pix_sol;
+	wire [7:0] canny_probe_gauss_out;
+	wire [9:0] canny_probe_sobel_mag,canny_probe_nms_mag;
+	wire canny_probe_edge_out;
+	wire [15:0] canny_probe_frame_id;
+	wire [9:0] canny_threshold_high={2'b00,threshold_pixel};
+	wire [9:0] canny_threshold_low=(canny_threshold_high>>2)+(canny_threshold_high>>3);
+	canny_video_frontend #(.IMAGE_WIDTH(1920),.IMAGE_HEIGHT(1080),.H_TOTAL(2200))
+	u_canny_frontend (
+		.clk(clk_pixel_2x),.rst_n(rstn_pixel),.gray_data(w_gray_data),
+		.in_r(w_rgb_r),.in_g(w_rgb_g),.in_b(w_rgb_b),
+		.in_vsync(w_gray_vsync),.in_hsync(w_gray_hsync),.in_href(w_gray_href),
+		.vio_th_high(canny_threshold_high),.vio_th_low(canny_threshold_low),
+		.edge_data(filtered_edge_data),.edge_valid(filtered_edge_valid),
+		.aligned_r(canny_rgb_r),.aligned_g(canny_rgb_g),.aligned_b(canny_rgb_b),
+		.out_vsync(filtered_vsync),.out_hsync(filtered_hsync),.out_href(filtered_href),
+		.probe_pix_valid(canny_probe_pix_valid),.probe_pix_sof(canny_probe_pix_sof),
+		.probe_pix_sol(canny_probe_pix_sol),.probe_gauss_out(canny_probe_gauss_out),
+		.probe_sobel_mag(canny_probe_sobel_mag),.probe_nms_mag(canny_probe_nms_mag),
+		.probe_edge_out(canny_probe_edge_out),.probe_frame_id(canny_probe_frame_id)
+	);
+	 
+	assign filtered_edge_dir=2'b00;
+	assign filtered_gradient_x=13'sd0;
+	assign filtered_gradient_y=13'sd0;
+	 
+	 
+	wire [7:0] canny_aligned_gray;
+	grayscale u_canny_aligned_gray (
+		.clk(clk_pixel_2x),.rst_n(rstn_pixel),
+		.in_r(canny_rgb_r),.in_g(canny_rgb_g),.in_b(canny_rgb_b),
+		.in_vsync(filtered_vsync),.in_hsync(filtered_hsync),.in_href(filtered_href),
+		.gray_data(canny_aligned_gray),.out_vsync(),.out_hsync(),.out_href()
+	);
+
+
+    wire erosion_feature_valid,erosion_analysis_done,erosion_overrun;
+    wire [1:0] erosion_feature_index,erosion_walk_status;
+    wire [31:0] erosion_feature_edge_count,erosion_feature_aspect_x1000,erosion_feature_contour_steps;
+    wire [10:0] erosion_feature_x_min,erosion_feature_x_max,erosion_feature_y_min,erosion_feature_y_max;
+    wire [31:0] erosion_processing_cycles;
+    shape_erosion_multi_candidate_top u_erosion_multi (
+        .clk(clk_pixel_2x),.rst_n(rstn_pixel),
+        .in_vsync(filtered_vsync),.in_href(filtered_href),
+        .edge_valid(filtered_edge_valid),.edge_data(filtered_edge_data),
+        .feature_valid(erosion_feature_valid),.feature_last(),.feature_index(erosion_feature_index),
+        .feature_edge_count(erosion_feature_edge_count),
+        .feature_x_min(erosion_feature_x_min),.feature_x_max(erosion_feature_x_max),
+        .feature_y_min(erosion_feature_y_min),.feature_y_max(erosion_feature_y_max),
+        .feature_aspect_ratio_x1000(erosion_feature_aspect_x1000),
+        .feature_contour_steps_grid(erosion_feature_contour_steps),
+        .feature_contour_valid(),.feature_walk_status(erosion_walk_status),
+        .analysis_done(erosion_analysis_done),.analysis_overrun(erosion_overrun),
+        .analysis_busy(),.processing_cycles(erosion_processing_cycles)
+    );
+
+     
+     
+     
+    wire simple_shape_valid, simple_shape_done, simple_shape_busy;
+    wire [2:0] simple_shape_class;
+    wire [7:0] simple_shape_confidence;
+    wire [10:0] simple_shape_x_min,simple_shape_x_max,simple_shape_y_min,simple_shape_y_max;
+    wire [11:0] simple_shape_edge_cells;
+    shape_simple_recognizer #(
+        .IMAGE_WIDTH(1920),.IMAGE_HEIGHT(1080),.BLOCK(16),
+        .ROI_X_MIN(560),.ROI_X_MAX(1359),.ROI_Y_MIN(240),.ROI_Y_MAX(839)
+    ) u_simple_shape (
+        .clk(clk_pixel_2x),.rst_n(rstn_pixel),
+        .in_vsync(filtered_vsync),.in_href(filtered_href),
+        .edge_valid(filtered_edge_valid),.edge_data(filtered_edge_data),
+        .result_valid(simple_shape_valid),.result_shape(simple_shape_class),
+        .result_confidence(simple_shape_confidence),
+        .result_x_min(simple_shape_x_min),.result_x_max(simple_shape_x_max),
+        .result_y_min(simple_shape_y_min),.result_y_max(simple_shape_y_max),
+        .result_edge_cells(simple_shape_edge_cells),.analysis_done(simple_shape_done),
+        .busy(simple_shape_busy)
+    );
+
+	wire 			legacy_target_valid;
+	wire 	[1:0]	legacy_target_shape;
+	wire 	[31:0]	legacy_target_edge_count;
+	wire 	[3:0]	legacy_target_dominant_bin;
+	wire 			legacy_target_frame_done;
+
+	 
+	 
+	 
+
+	 
+	 
+	wire 			geometry_target_valid;
+	wire 	[2:0]	geometry_target_shape;
+	wire 	[10:0]	geometry_x_min, geometry_x_max;
+	wire 	[10:0]	geometry_y_min, geometry_y_max;
+	wire 	[15:0]	geometry_result_frame_id;
+	wire 	[15:0]	geometry_input_frame_id;
+	wire 	[15:0]	geometry_processing_frame_id;
+	wire 	[1:0]	geometry_buffer0_state, geometry_buffer1_state;
+	wire 			geometry_busy, geometry_overrun;
+	wire 	[31:0]	geometry_processing_cycles;
+	wire 			geometry_display_valid;
+	wire 	[2:0]	geometry_display_shape;
+	wire 	[10:0]	geometry_display_x_min, geometry_display_x_max;
+	wire 	[10:0]	geometry_display_y_min, geometry_display_y_max;
+	wire 	[15:0]	geometry_display_frame_id;
+
+	wire hu_result_event;
+	 
+	(* async_reg="true" *) reg [1:0] hu_video_reset_sync, hu_process_reset_sync;
+	always @(posedge clk_pixel_2x or negedge w_pll_lock)
+		if (!w_pll_lock) hu_video_reset_sync <= 2'b00;
+		else hu_video_reset_sync <= {hu_video_reset_sync[0],1'b1};
+	always @(posedge clk_54m or negedge w_pll_lock)
+		if (!w_pll_lock) hu_process_reset_sync <= 2'b00;
+		else hu_process_reset_sync <= {hu_process_reset_sync[0],1'b1};
+	wire [31:0] hu_dropped_frames, hu_malformed_frames, hu_det_q24;
+	wire [1:0] hu_bank_locked;
+	hu_video_adapter #(
+		 
+		 
+		 
+		 
+		.RECOG_X_MIN		(640),
+		.RECOG_Y_MIN		(320),
+		.RECOG_WIDTH		(640),
+		.RECOG_HEIGHT		(440)
+	) u_hu_video_adapter (
 		.clk			(clk_pixel_2x),
-		.rst_n			(rstn_pixel),
-		.gray_data		(w_gray_data),
-		.in_vsync		(w_gray_vsync),
-		.in_hsync		(w_gray_hsync),
-		.in_href		(w_gray_href),
-		.p00			(p00),
-		.p01			(p01),
-		.p02			(p02),
-		.p10			(p10),
-		.p11			(p11),
-		.p12			(p12),
-		.p20			(p20),
-		.p21			(p21),
-		.p22			(p22),
-		.out_vsync		(window_vsync),
-		.out_hsync		(window_hsync),
-		.out_href		(window_href),
-		.window_valid	(window_valid)
+		.rst_n			(hu_video_reset_sync[1]),
+		.process_clk		(clk_54m),
+		.process_rst_n		(hu_process_reset_sync[1]),
+		.in_vsync		(filtered_vsync),
+		.in_href		(filtered_href),
+		.edge_valid		(filtered_edge_valid),
+		.edge_data		(filtered_edge_data),
+		.result_event		(hu_result_event),
+		.result_valid		(geometry_target_valid),
+		.result_shape		(geometry_target_shape),
+		.result_frame_id	(geometry_result_frame_id),
+		.input_frame_id		(geometry_input_frame_id),
+		.dropped_frames		(hu_dropped_frames),
+		.malformed_frames	(hu_malformed_frames),
+		.last_hu_det		(hu_det_q24),
+		.bank_locked		(hu_bank_locked),
+		.last_processing_cycles(geometry_processing_cycles),
+		.display_valid		(geometry_display_valid),
+		.display_shape		(geometry_display_shape),
+		.display_x_min		(geometry_display_x_min),
+		.display_x_max		(geometry_display_x_max),
+		.display_y_min		(geometry_display_y_min),
+		.display_y_max		(geometry_display_y_max),
+		.display_frame_id	(geometry_display_frame_id)
 	);
 
-	sobel_core u_sobel_core (
-		.p00			(p00),
-		.p01			(p01),
-		.p02			(p02),
-		.p10			(p10),
-		.p11			(p11),
-		.p12			(p12),
-		.p20			(p20),
-		.p21			(p21),
-		.p22			(p22),
-		.window_valid	(window_valid),
-		.edge_data		(edge_data),
-		.edge_valid		(edge_valid)
+	wire 			target_valid;
+	wire 	[2:0]	target_shape;
+	wire 	[10:0]	target_x_min, target_x_max;
+	wire 	[10:0]	target_y_min, target_y_max;
+	assign target_valid = 1'b0;
+	assign target_shape = geometry_display_shape;
+	assign target_x_min = geometry_display_x_min;
+	assign target_x_max = geometry_display_x_max;
+	assign target_y_min = geometry_display_y_min;
+	assign target_y_max = geometry_display_y_max;
+
+	 
+	 
+	wire [7:0] split_r;
+	wire [7:0] split_g;
+	wire [7:0] split_b;
+	wire display_vsync,display_hsync,display_href;
+	wire [7:0] multi_r, multi_g, multi_b;
+	wire multi_vsync, multi_hsync, multi_href;
+
+	color_edge_overlay #(
+		.IMAGE_WIDTH(1920),
+		.SPLIT_WIDTH(960),
+		.DISPLAY_MODE(1'b1),
+		.RUNTIME_MODE(1'b1),
+		.INPUTS_ALIGNED(1'b1),
+		.SHOW_ROI_GUIDE(1'b0),
+		.ROI_X_MIN(560),
+		.ROI_X_MAX(1359),
+		.ROI_Y_MIN(240),
+		.ROI_Y_MAX(839)
+	) u_color_edge_overlay (
+		.clk        (clk_pixel_2x),
+		.rst_n      (rstn_pixel),
+		.in_vsync   (filtered_vsync),
+		.in_hsync   (filtered_hsync),
+		.in_href    (filtered_href),
+		.in_r       (canny_rgb_r),
+		.in_g       (canny_rgb_g),
+		.in_b       (canny_rgb_b),
+		.in_gray    (canny_aligned_gray),
+		.edge_data  (filtered_edge_data),
+		.edge_valid (filtered_edge_valid),
+		.runtime_mode_i(display_mode_pixel),
+		.target_valid(target_valid),
+		.target_shape(target_shape),
+		.bbox_x_min (target_x_min),
+		.bbox_x_max (target_x_max),
+		.bbox_y_min (target_y_min),
+		.bbox_y_max (target_y_max),
+		.analysis_valid      (1'b0),
+		.analysis_edge_count (analysis_edge_count),
+		.analysis_width      (analysis_width),
+		.analysis_height     (analysis_height),
+		.out_r      (split_r),
+		.out_g      (split_g),
+		.out_b      (split_b),
+		.out_vsync(display_vsync),.out_hsync(display_hsync),.out_href(display_href)
 	);
 
-	edge_threshold #(
-		.THRESHOLD(8'd80)
-	) u_edge_threshold (
-		.edge_data_in	(edge_data),
-		.edge_valid_in	(edge_valid),
-		.edge_data_out	(binary_edge_data),
-		.edge_valid_out(binary_edge_valid)
-	);
+    erosion_analysis_overlay #(.IMAGE_WIDTH(1920)) u_multi_overlay (
+        .clk(clk_pixel_2x),.rst_n(rstn_pixel),
+        .in_vsync(display_vsync),.in_hsync(display_hsync),.in_href(display_href),
+        .in_r(split_r),.in_g(split_g),.in_b(split_b),.runtime_mode(display_mode_pixel),
+        .display_slots(display_slots_pixel),
+        .feature_valid(erosion_feature_valid),.feature_index(erosion_feature_index),
+        .feature_edges(erosion_feature_edge_count),
+        .feature_x0(erosion_feature_x_min),.feature_x1(erosion_feature_x_max),
+        .feature_y0(erosion_feature_y_min),.feature_y1(erosion_feature_y_max),
+        .feature_aspect(erosion_feature_aspect_x1000[15:0]),
+        .feature_steps(erosion_feature_contour_steps),.feature_status(erosion_walk_status),
+        .analysis_done(erosion_analysis_done),.analysis_error(erosion_overrun),
+        .out_r(multi_r),.out_g(multi_g),.out_b(multi_b),
+        .out_vsync(multi_vsync),.out_hsync(multi_hsync),.out_href(multi_href)
+    );
+
+    wire [7:0] shape_r,shape_g,shape_b;
+    wire shape_vsync,shape_hsync,shape_href;
+    shape_simple_overlay #(
+        .ROI_X_MIN(560),.ROI_X_MAX(1359),.ROI_Y_MIN(240),.ROI_Y_MAX(839)
+    ) u_simple_overlay (
+        .clk(clk_pixel_2x),.rst_n(rstn_pixel),
+        .in_vsync(multi_vsync),.in_hsync(multi_hsync),.in_href(multi_href),
+        .in_r(multi_r),.in_g(multi_g),.in_b(multi_b),.runtime_mode(display_mode_pixel),
+        .result_valid(simple_shape_valid),.result_shape(simple_shape_class),
+        .result_confidence(simple_shape_confidence),
+        .result_x_min(simple_shape_x_min),.result_x_max(simple_shape_x_max),
+        .result_y_min(simple_shape_y_min),.result_y_max(simple_shape_y_max),
+        .result_edge_cells(simple_shape_edge_cells),
+        .out_r(shape_r),.out_g(shape_g),.out_b(shape_b),
+        .out_vsync(shape_vsync),.out_hsync(shape_hsync),.out_href(shape_href)
+    );
 
 	
 	
 	
 	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//	LVDS Output 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//	HDMI requires specific timing, thus is not compatible with LCD & LVDS & DSI. Must implement standalone. 
+	 
+	 
+	 
+	 
 	
 	assign hdmi_txd0_rst_o = rst_pixel; 
 	assign hdmi_txd1_rst_o = rst_pixel; 
@@ -1295,25 +1699,25 @@ module example_top
 	assign hdmi_txd2_oe = 1'b1; 
 	assign hdmi_txc_oe = 1'b1; 
 	
-	//-------------------------------------
-	//Digilent HDMI-TX IP Modified by CB elec.
+	 
+	 
 	rgb2dvi #(.ENABLE_OSERDES(0)) u_rgb2dvi 
 	(
-		.oe_i 		(1), 			//	Always enable output
-		.bitflip_i 		(4'b0000), 		//	Reverse clock & data lanes. 
+		.oe_i 		(1), 			 
+		.bitflip_i 		(4'b0000), 		 
 		
 		.aRst			(1'b0), 
 		.aRst_n		(1'b1), 
 		
-		.PixelClk		(clk_pixel_2x        ),//pixel clk = 74.25M
-		.SerialClk		(     ),//pixel clk *5 = 371.25M
+		.PixelClk		(clk_pixel_2x        ), 
+		.SerialClk		(     ), 
 		
-		.vid_pVSync		(w_gray_vsync), 
-		.vid_pHSync		(w_gray_hsync), 
-		.vid_pVDE		(w_gray_href), 
-		// Legacy Sobel grayscale output, retained for quick rollback:
-		// .vid_pData		({edge_data, edge_data, edge_data}),
-		.vid_pData		({binary_edge_data, binary_edge_data, binary_edge_data}), 
+		.vid_pVSync		(shape_vsync), 
+		.vid_pHSync		(shape_hsync), 
+		.vid_pVDE		(shape_href), 
+		 
+		 
+		.vid_pData		({shape_r, shape_g, shape_b}),
 		
 		.txc_o		(hdmi_txc_o), 
 		.txd0_o		(hdmi_txd0_o), 

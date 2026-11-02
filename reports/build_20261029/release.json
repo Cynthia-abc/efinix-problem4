@@ -1,0 +1,41 @@
+{
+  "platform": "Ti60F225",
+  "revision": "mode4 rectangle fix 2026-10-29",
+  "board_validation": "PENDING",
+  "build_status": "map/interface/pnr/pgm/export PASS",
+  "tests": {
+    "thin_regression.log": "11/11 PASS",
+    "fullhd_regression.log": "4/4 PASS"
+  },
+  "resources": {
+    "LUT4": 12839,
+    "FF": 10736,
+    "RAM10": 238,
+    "DSP48": 4,
+    "DSP24": 1
+  },
+  "artifacts": {
+    "bitstreams_analysis\\Ti60_Demo_ErosionMulti4_RectFix_20261029.bit": {
+      "bytes": 2456169,
+      "sha256": "37565993ea43df1448418ff401473e4bd5107284ea484aa28c4168c73b367fcb"
+    },
+    "bitstreams_analysis\\Ti60_Demo_ErosionMulti4_RectFix_20261029.bit.bin": {
+      "bytes": 818723,
+      "sha256": "ef048b15a05f1a3532fe71c7d75cf2f137d5e1b260db71f0e7517bd8e48119e6"
+    }
+  },
+  "source_sha256": {
+    "src/isp/shape_simple_recognizer.v": "94b6d18d3b429b05bfca6546cce795701060a0336c8e0befc80b0c92988d6754",
+    "example_top.v": "def2f4e085847954c4376b963c759e7e1749f427c0d365820b56f08aaafc4c33",
+    "Ti60_Demo.xml": "e018e9a076b80efe64c498c7a4a72cec9b94781e17fab5a45939965d09e014fe",
+    "build_rectfix_20261029.cmd": "b61605c4144b513e5481463f202bd022fd9a2de7caf445d573d51f081eeedb83",
+    "sim/tb_shape_simple_thin.v": "4f898bb2ec4fba2595d141e4d334a8d7b2277c2ea1cd18bda9a5ad820cf22d23",
+    "sim/check_shape_rectfix.py": "d22450ecd7f4f379ff1dfe4f68aaad3dfd25d6adc686dc22bcfeddd5a9b5251c"
+  },
+  "timing_ns": {
+    "min_setup": 0.298,
+    "min_hold": 0.019,
+    "pixel_setup": 1.562,
+    "pixel_hold": 0.026
+  }
+}

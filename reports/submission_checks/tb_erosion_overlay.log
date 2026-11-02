@@ -1,0 +1,5 @@
+sim/tb_erosion_overlay.v:13: warning: Port 9 (runtime_mode) of erosion_analysis_overlay expects 3 bits, got 2.
+sim/tb_erosion_overlay.v:13:        : Padding 1 high bits of the port.
+
+PASS tb_erosion_overlay: decimal, atomic commit, empty/error clear, modes 0/1/2
+sim/tb_erosion_overlay.v:62: $finish called at 35316000 (1ps)

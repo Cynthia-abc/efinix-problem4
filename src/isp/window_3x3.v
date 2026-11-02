@@ -1,6 +1,6 @@
-// Two-line 3x3 window generator backed by Efinix simple dual-port RAMs.
-// The template is supplied as an XML design file for Efinity. Icarus does
-// not receive that file in the standalone command, so include it only there.
+ 
+ 
+ 
 `ifdef __ICARUS__
 `include "ip/dsi_tx/Ti60F225_devkit/simple_dual_port_ram.v"
 `endif
@@ -36,8 +36,8 @@ module window_3x3 #(
     reg        previous_href;
     reg        row_phase;
 
-    // RAM0/RAM1 alternate current-row writes. Both are read every active
-    // pixel; the selected RAMs provide the two historical rows.
+     
+     
     wire       active_pixel;
     wire [RAM_ADDR_WIDTH-1:0] ram_addr;
     wire       ram0_we;
@@ -80,7 +80,7 @@ module window_3x3 #(
         .rdata(ram1_rdata)
     );
 
-    // RAM read data and current-row data are consumed one clock later.
+     
     reg [7:0] top_shift_0, top_shift_1, top_shift_2;
     reg [7:0] mid_shift_0, mid_shift_1, mid_shift_2;
     reg [7:0] bot_shift_0, bot_shift_1, bot_shift_2;
@@ -92,14 +92,14 @@ module window_3x3 #(
     wire [7:0] top_pixel_d;
     wire [7:0] mid_pixel_d;
 
-    // Phase 0: RAM0 is the row from two lines ago, RAM1 the previous row.
-    // Phase 1 swaps those historical-row roles.
+     
+     
     assign top_ram_data = (row_phase == 1'b0) ? ram0_rdata : ram1_rdata;
     assign mid_ram_data = (row_phase == 1'b0) ? ram1_rdata : ram0_rdata;
     assign top_pixel_d  = history_valid_d ? top_ram_data : 8'd0;
     assign mid_pixel_d  = history_valid_d ? mid_ram_data : 8'd0;
 
-    // Metadata and validity share the same one-cycle delay as the RAM data.
+     
     reg pending_vsync;
     reg pending_hsync;
     reg pending_href;
@@ -137,8 +137,8 @@ module window_3x3 #(
             out_href  <= 1'b0;
             window_valid <= 1'b0;
         end else if (!in_vsync) begin
-            // Low VSYNC is vertical blank/frame synchronization. RAM contents
-            // are intentionally retained; validity and addressing restart here.
+             
+             
             column_count  <= 32'd0;
             row_count     <= 32'd0;
             previous_href <= 1'b0;
@@ -169,7 +169,7 @@ module window_3x3 #(
             out_href  <= 1'b0;
             window_valid <= 1'b0;
         end else begin
-            // Emit the window belonging to the preceding input cycle.
+             
             out_vsync    <= pending_vsync;
             out_hsync    <= pending_hsync;
             out_href     <= pending_href;
@@ -199,7 +199,7 @@ module window_3x3 #(
                                     (column_count >= 32'd2);
 
             if (!in_href) begin
-                // The low HREF interval terminates a row and rotates RAM roles.
+                 
                 if (previous_href) begin
                     row_count <= row_count + 1'b1;
                     row_phase <= ~row_phase;
@@ -224,7 +224,7 @@ module window_3x3 #(
                 history_valid_d <= 1'b1;
                 gray_data_d <= gray_data;
 
-                // Shift one historical-row sample and one current-row sample.
+                 
                 top_shift_0 <= top_shift_1;
                 top_shift_1 <= top_shift_2;
                 top_shift_2 <= top_pixel_d;

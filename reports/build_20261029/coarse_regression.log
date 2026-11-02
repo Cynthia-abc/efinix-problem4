@@ -1,0 +1,6 @@
+kind=1 shape=2 bbox=16,16..47,47 cells=28 conf=180
+  internals boundary=28 corners=12
+kind=2 shape=1 bbox=8,8..55,55 cells=32 conf=180
+  internals boundary=32 corners=0
+PASS tb_shape_simple_recognizer
+sim\tb_shape_simple_recognizer.v:48: $finish called at 313490000 (1ps)

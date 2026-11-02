@@ -1,0 +1,34 @@
+rect_phase0: shape=2 expected=2 box=44,28..143,99 cells=82 sides=25/25/18/18 corners=16
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+rect_phase1: shape=2 expected=2 box=44,28..143,99 cells=82 sides=25/25/18/18 corners=16
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+rect_phase2: shape=2 expected=2 box=44,28..143,99 cells=82 sides=25/25/18/18 corners=16
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+rect_phase3: shape=2 expected=2 box=44,28..143,99 cells=82 sides=25/25/18/18 corners=16
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+rect_square: shape=2 expected=2 box=48,20..139,111 cells=88 sides=23/23/23/23 corners=20
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+rect_gaps: shape=2 expected=2 box=44,28..143,99 cells=82 sides=25/25/18/18 corners=16
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+rect_skew: shape=2 expected=2 box=40,20..151,111 cells=96 sides=11/3/10/2 corners=14
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+rect_skew_gaps: shape=2 expected=2 box=40,20..151,111 cells=95 sides=11/3/10/2 corners=14
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+circle: shape=1 expected=1 box=56,24..139,107 cells=80 sides=9/4/9/4 corners=0
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+circle_small: shape=1 expected=1 box=68,36..123,91 cells=52 sides=6/6/6/6 corners=0
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+empty: shape=0 expected=0 box=0,0..0,0 cells=0 sides=0/0/0/0 corners=0
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 363110000 (1ps)
+11/11 PASS; failures=[]

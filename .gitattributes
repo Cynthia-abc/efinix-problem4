@@ -1,0 +1,7 @@
+* -text
+*.bit binary
+*.bin binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.pickle binary

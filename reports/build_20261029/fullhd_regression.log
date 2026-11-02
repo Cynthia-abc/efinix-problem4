@@ -1,0 +1,13 @@
+fullhd_rect: shape=2 expected=2 box=704,352..1215,735 cells=108 sides=32/32/24/24 corners=24
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 21288870000 (1ps)
+fullhd_skew: shape=2 expected=2 box=704,304..1215,767 cells=116 sides=4/9/10/2 corners=12
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 21288870000 (1ps)
+fullhd_circle: shape=1 expected=1 box=768,336..1151,735 cells=92 sides=4/8/10/10 corners=0
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 21288870000 (1ps)
+fullhd_empty_roi: shape=0 expected=0 box=0,0..0,0 cells=0 sides=0/0/0/0 corners=0
+PASS thin-pixel fixture
+sim/tb_shape_simple_thin.v:40: $finish called at 21288870000 (1ps)
+4/4 PASS; failures=[]

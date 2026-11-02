@@ -1,0 +1,3 @@
+
+PASS tb_erosion_bounds: busy-frame isolation, walk limit, label overflow and recovery
+sim/tb_erosion_bounds.v:50: $finish called at 71350000 (1ps)
